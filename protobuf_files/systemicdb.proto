@@ -1,0 +1,56 @@
+/**
+* SystemDB Server
+*/
+syntax = "proto3";
+
+option go_package = "github.com/SamuelBanksTech/systemicdbGrpc";
+
+package systemicdbGrpc;
+
+service Get {
+  rpc ByKey (GetByKeyRequest) returns (SingleResponse) {}
+  rpc ByTag (GetByTagRequest) returns (RepeatedResponse) {}
+}
+
+service Set {
+  rpc ByKey (SetByKeyRequest) returns (BoolResponse) {}
+  rpc ByTag (SetByTagRequest) returns (BoolResponse) {}
+}
+
+service Del {
+  rpc ByKey (GetByKeyRequest) returns (BoolResponse) {}
+  rpc ByTag (GetByTagRequest) returns (BoolResponse) {}
+}
+
+message SetByKeyRequest {
+  string key = 1;
+  string datum = 2;
+  int32 expirySeconds = 3;
+}
+
+message SetByTagRequest {
+  string tag = 1;
+  string key = 2;
+  string datum = 3;
+  int32 expirySeconds = 4;
+}
+
+message GetByKeyRequest {
+  string key = 1;
+}
+
+message GetByTagRequest {
+  string tag = 1;
+}
+
+message SingleResponse {
+  string datum = 1;
+}
+
+message RepeatedResponse {
+  repeated string datum = 1;
+}
+
+message BoolResponse {
+  bool ok = 1;
+}
